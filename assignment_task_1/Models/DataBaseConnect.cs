@@ -12,7 +12,7 @@ namespace assignment_task_1.Models
         public DbSet<Product> Products { get; set; }
      
         public DbSet<Category> Category { get; set; }
-        public DbSet<ProdcuctBill> ProcductBills { get; set; }
+        public DbSet<UPIPayment> UPIPayments { get; set; }
         public DbSet<Customer> Customers { get; set; }
 
        

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using assignment_task_1.Models;
@@ -11,9 +12,11 @@ using assignment_task_1.Models;
 namespace assignment_task_1.Migrations
 {
     [DbContext(typeof(DataBaseConnect))]
-    partial class DataBaseConnectModelSnapshot : ModelSnapshot
+    [Migration("20240319063412_initial4")]
+    partial class initial4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -163,7 +166,15 @@ namespace assignment_task_1.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("TotalPrice")
+                    b.Property<string>("Product_Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Product_Price")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Product_warranty")
                         .IsRequired()
                         .HasColumnType("text");
 

@@ -48,15 +48,9 @@
     <script>
         $(document).ready(function () {
             $('#paymentForm').submit(function (event) {
-
+                event.preventDefault();
                 alert("Payment successful! Thank you for your purchase.... ");
-                // event.preventDefault();
-
-                // var cardNumber = $('#cardNumber').val();
-                // var expiryDate = $('#expiryDate').val();
-                // var cvv = $('#cvv').val();
-                // var nameOnCard = $('#nameOnCard').val();
-
+                window.location.href = '/Add/ShowView';
             });
         });
     </script>

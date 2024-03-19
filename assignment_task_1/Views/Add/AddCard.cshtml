@@ -74,14 +74,14 @@
                     <span id="totalAmount">Rs.</span>
                 </div>
             </div>
-            <div class=" col-md-6 form-group">
+            @* <div class=" col-md-6 form-group">
                 <label for="paymentOption"><b>Payment Option :</b></label><br>
                 <input type="radio" name="paymentOption" id="upiPayment" value="upi">
                 <label for="upiPayment">  UPI Payment</label>
 
                 <input type="radio" name="paymentOption" id="cod" value="cod" checked>
                 <label for="cod">Cash on Delivery</label>
-            </div>
+            </div> *@
         </div>
 
     </form>
@@ -104,7 +104,8 @@
 
         </table>
 
-        <a onclick="cardOrder()" class="btn btn-info">Order All</a>
+        <a onclick="cardOrder()" class="btn btn-info">Cash on Delivery</a>
+        <a onclick="UpiPayment()" class="btn btn-primary">UPI Payment</a>
     </div>
     <script>
         function updateCartTable() {
@@ -183,6 +184,45 @@
                 }
             });
         }
+
+        function UpiPayment() {
+            var name = $('#name').val();
+            var number = $('#number').val();
+            var email = $('#email').val();
+            var address = $('#address').val();
+            var totalPrice = $('#totalAmount').text();
+
+            if (name === "" || number === "" || email === "" || address === "") {
+                alert("Please fill in all the required fields.");
+                return;
+            }
+
+            var customerData = {
+                Customer_Name: name,
+                Number: number,
+                Address: address,
+                Email: email,
+                Product_Price: totalPrice
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '/Add/OrderCard',
+                data: customerData,
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.message);
+                        window.location.href = '/Add/UPIPayment';
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function () {
+                    alert("An error occurred while processing the request");
+                }
+            });
+        }
+
 
         $(document).ready(function () {
             updateCartTable();

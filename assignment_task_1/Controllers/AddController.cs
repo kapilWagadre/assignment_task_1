@@ -99,7 +99,7 @@ namespace assignment_task_1.Controllers
         {
             _context.Customers.Add(customer);
             _context.SaveChanges();
-            var responseData = new { success = true, message = "Products Ordered Successfully" };
+            var responseData = new { success = true, message = "Please Provide Confirmation For Booking " };
 
             return Json(responseData);
         }
@@ -108,8 +108,7 @@ namespace assignment_task_1.Controllers
         {
             return View();
         }
-         
-
+        
 
         public IActionResult CustomerBuynow(Customer bill) 
         {
@@ -150,13 +149,12 @@ namespace assignment_task_1.Controllers
 
             
 
-            emailBody.AppendLine("<p>Your order will be delivered by 20 March 2024, Thursday.</p>");
+            emailBody.AppendLine("<p>Your order will be delivered by 23 March 2024, Thursday.</p>");
             emailBody.AppendLine("<p>Thank you for shopping with us!</p>");
             emailBody.AppendLine("<p>Best regards , </p>");
             emailBody.AppendLine("<p>The SmartCart Team</p>");
             return emailBody.ToString();
         }
-
 
     }
 
