@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body{
+            background: -webkit-linear-gradient(to right, #155799, #159957);
+            background: linear-gradient(to right, #155799, #159957);
+            color: whitesmoke;
+        }
+        
+        form {
+            margin: auto;
+            color: whitesmoke;
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            background-color: rgba(11, 15, 13, 0.582);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.125);
+            width: 400px;
+        }
+
+        .box {
+            margin-top:120px;
+            
+        }
+        button {
+            background-color: #030804;
+            color: white;
+            padding: 14px 20px;
+            border-radius: 5px;
+            margin: 7px 0;
+            width: 100%;
+            font-size: 18px;
+        }
+
+        .color {
+            color: white;
+        }
+
+        button:hover {
+            opacity: 0.6;
+            cursor: pointer;
+            }
+
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+
+        <a class="navbar-brand bi bi-cart4 ml-2" href="#">
+            SmartCard
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="navbar-nav ml-auto">
+               
+                <div class="nav-item active">
+                    <a class="nav-link bi bi-person-gear" href="/Admin/Adminlogin"> Admin </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+ 
+    <form class="box" asp-action="Index" asp-controller="Home" method="post">
+    <div class=" container mt-3 ">
+        <h2 class="mb-2"><spam style="color:blue">Sign</spam> <span style="color:red"> In</span></h2><hr />
+
+       
+
+            <div class="mt-4 form-group">
+                <label for="email"><b>Email :</b></label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email"  required>
+            </div>
+
+            <div class="form-group">
+                <label for="password"><b>Password :</b></label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Sign In</button>
+        </form>
+        <p class="forgotpsd mt-2"> <a href="/Home/Forgetpass">Forgot Password?</a></p>
+        <p class="">Don't have an account? <a href="/Home/Index1">Sign Up</a></p>
+    </div>
+
+    <!-- Add Bootstrap JS and Popper.js scripts -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+   @*  <script> *@
+        <script>
+            
+            var errorMessage = "@TempData["ErrorMessage"]";
+            if (errorMessage && errorMessage.length > 0) {
+            alert(errorMessage);
+        }
+        $(document).ready(function () {
+            $('[name]').css('border', '1px solid blue'),
+                $('.border').css('border', '3px solid red');
+        });
+    </script>
+    
+   @*  </script> *@
+
+</body>
+</html>

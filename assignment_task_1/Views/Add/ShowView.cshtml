@@ -1,0 +1,485 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" integrity="sha384-4LISF5TTJX/fLmGSxO53rV4miRxdg84mZsxmO8Rx5jGtp/LbrixFETvWa5a6sESd" crossorigin="anonymous">
+    <script src="js/modernizr.js"></script>
+    <title>Shopping Site</title>
+    <style>
+        body {
+            padding-top: 56px; /* Adjust for fixed navbar */
+        }
+       .logo{
+           width:300px;
+       }
+       .head{
+           background-color: lightblue;
+       }
+        .product-image {
+            max-width: 80%;
+            width: 500px;
+            height: 350px;
+            margin-top: 40px;
+            margin-left:30px;
+        }
+        .color {
+            color: white;
+        }
+      .backgraund {
+            background-color: #f8f9fa;
+            height: 100vh;
+        }
+       
+    </style>
+</head>
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+<symbol xmlns="http://www.w3.org/2000/svg" id="quality" viewBox="0 0 16 16">
+    <path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z" />
+    <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z" />
+</symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" id="price-tag" viewBox="0 0 16 16">
+        <path d="M6 4.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm-1 0a.5.5 0 1 0-1 0 .5.5 0 0 0 1 0z" />
+        <path d="M2 1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 1 6.586V2a1 1 0 0 1 1-1zm0 5.586 7 7L13.586 9l-7-7H2v4.586z" />
+    </symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" id="shield-plus" viewBox="0 0 16 16">
+        <path d="M5.338 1.59a61.44 61.44 0 0 0-2.837.856.481.481 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.725 10.725 0 0 0 2.287 2.233c.346.244.652.42.893.533.12.057.218.095.293.118a.55.55 0 0 0 .101.025.615.615 0 0 0 .1-.025c.076-.023.174-.061.294-.118.24-.113.547-.29.893-.533a10.726 10.726 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.775 11.775 0 0 1-2.517 2.453 7.159 7.159 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7.158 7.158 0 0 1-1.048-.625 11.777 11.777 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 62.456 62.456 0 0 1 5.072.56z" />
+        <path d="M8 4.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V9a.5.5 0 0 1-1 0V7.5H6a.5.5 0 0 1 0-1h1.5V5a.5.5 0 0 1 .5-.5z" />
+    </symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" id="cart-outline" viewBox="0 0 16 16">
+        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+    </symbol>
+</svg>
+
+<body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" tabindex="0">
+        <div class="container mt-4">
+                <div class=" row head">
+            <div class="row col-md-6">
+                    <img src="~/css/images/holi sale.jpg" alt="Product Image" class="product-image">
+                </div>
+                 <div class="col-md-6 ">
+                    <div class=" padding-medium">
+                        <h3> 25% off</h3>
+                        <h2 class="display-2 text-uppercase text-dark">SmartCard Holi Sale</h2>
+                        <h4>Start in 20 March 2024</h4><br />
+                      
+                       
+                    </div>
+                   </div>
+                </div>
+            <section id="laptop-products" class="mt-5  product-store position-relative padding-large no-padding-top">
+                <div class="container">
+                    <div class="row">
+                        <div class="display-header d-flex justify-content-between pb-3">
+                            <h2 class="display-7 text-dark text-uppercase">Laptop Products</h2>
+                            <div class="btn-right">
+                                <a href="ViewLaptop" class="btn btn-medium btn-normal text-uppercase">Go to Shopping</a>
+                            </div>
+                        </div>
+                       
+                        <div class="swiper product-swiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <div class="product-card position-relative">
+                                            <img src="~/css/images/iplap.png" alt="laptop-item" class="img-fluid">
+                                        <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+                                            <h3 class="card-title text-uppercase">
+                                                Apple Laptop
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="product-card position-relative">
+                                            <img src="~/css/images/post-image1.jpg" alt="laptop-item" class="img-fluid">
+                                        <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+                                            <h3 class="card-title text-uppercase">
+                                                HP Laptop
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="product-card position-relative">
+                                            <img src="~/css/images/dellll.png" alt="laptop-item" class="img-fluid">
+                                        <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+                                            <h3 class="card-title text-uppercase">
+                                                Dell Laptop
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="product-card position-relative">
+                                            <img src="~/css/images/dell.png" alt="laptop-item" class="img-fluid">
+                                        <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+                                            <h3 class="card-title text-uppercase">
+                                                Asus Laptop
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination position-absolute text-center"></div>
+            </section>
+            <section id="mobile-products" class="mt-5 product-store position-relative padding-large no-padding-top">
+                <div class="container">
+                    <div class="row">
+                        <div class="display-header d-flex justify-content-between pb-3">
+                            <h2 class="display-7 text-dark text-uppercase">Mobile Products</h2>
+                            <div class="btn-right">
+                                    <a href="ViewPhone" class="btn btn-medium btn-normal text-uppercase">Go to Shopping</a>
+                            </div>
+                        </div>
+                        <div class="swiper product-swiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <div class="product-card position-relative">
+                                            <img src="~/css/images/product-item4.jpg" alt="product-item" class="img-fluid">
+                                        <div class="pt-3">
+                                            <h3 class="card-title text-uppercase">
+                                                Iphone
+                                            </h3>  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="product-card position-relative">
+                                            <img src="~/css/images/product-item2.jpg" alt="product-item" class="img-fluid">
+                                        <div class="pt-3">
+                                            <h3 class="card-title text-uppercase">
+                                                One Plus
+                                            </h3>    
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="product-card position-relative">
+                                            <img src="~/css/images/product-item3.jpg" alt="product-item" class="img-fluid">
+                                        <div class="pt-3">
+                                            <h3 class="card-title text-uppercase">
+                                                OPPO
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="product-card position-relative">
+                                            <img src="~/css/images/product-item5.jpg" alt="product-item" class="img-fluid">
+                                        <div class="pt-3">
+                                            <h3 class="card-title text-uppercase">
+                                                Vivo
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="product-card position-relative">
+                                            <img src="~/css/images/product-item5.jpg" alt="product-item" class="img-fluid">
+                                        <div class="pt-3">
+                                            <h3 class="card-title text-uppercase">
+                                                Redmi
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination position-absolute text-center"></div>
+            </section>
+            <section id="smart-watches" class="product-store padding-large position-relative">
+                <div class="container">
+                    <div class="row">
+                        <div class="display-header d-flex justify-content-between pb-3">
+                            <h2 class="display-7 text-dark text-uppercase">Smart Watches</h2>
+                            <div class="btn-right">
+                                <a href="ViewWatch" class="btn btn-medium btn-normal text-uppercase">Go to Shopping</a>
+                            </div>
+                        </div>
+                        <div class="swiper product-watch-swiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <div class="product-card position-relative">
+                                            <img src="~/css/images/product-item6.jpg" alt="product-item" class="img-fluid">
+                                        <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+                                            <h3 class="card-title text-uppercase">
+                                                Fire-Boltt
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="product-card position-relative">
+                                    <img src="~/css/images/product-item7.jpg" alt="product-item" class="img-fluid">
+                                       
+                                        <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+                                            <h3 class="card-title text-uppercase">
+                                                Noise
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="product-card position-relative">
+                                            <img src="~/css/images/product-item8.jpg" alt="product-item" class="img-fluid">
+                                        <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+                                            <h3 class="card-title text-uppercase">
+                                                Samsung
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="product-card position-relative">
+                                            <img src="~/css/images/product-item9.jpg" alt="product-item" class="img-fluid">
+                                        <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+                                            <h3 class="card-title text-uppercase">
+                                                Fastrack
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="product-card position-relative">
+                                            <img src="~/css/images/product-item10.jpg" alt="product-item" class="img-fluid">
+                                        <div class="card-detail d-flex justify-content-between pt-3">
+                                            <h3 class="card-title text-uppercase">
+                                                Boat
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination position-absolute text-center"></div>
+            </section>
+
+        <section id="earbuds-products" class="mt-5 product-store position-relative padding-large no-padding-top">
+            <div class="container">
+                <div class="row">
+                    <div class="display-header d-flex justify-content-between pb-3">
+                        <h2 class="display-7 text-dark text-uppercase">Earbuds Products</h2>
+                        <div class="btn-right">
+                            <a href="ViewEarbuds" class="btn btn-medium btn-normal text-uppercase">Go to Shopping</a>
+                        </div>
+                    </div>
+                    <div class="swiper product-swiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="product-card position-relative">
+                                    <div class="image-holder">
+                                        <img src="~/css/images/insta-item4.jpg" alt="earbuds-item" class="img-fluid">
+                                    </div>
+                                    <div class="pt-3">
+                                        <h3 class="card-title text-uppercase">
+                                            OnePlus Earbuds
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="product-card position-relative">
+                                    <div class="image-holder">
+                                        <img src="~/css/images/insta-item4.jpg" alt="earbuds-item" class="img-fluid">
+                                    </div>
+                                    
+                                    <div class="pt-3">
+                                        <h3 class="card-title text-uppercase">
+                                            Noise Earbuds
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="product-card position-relative">
+                                    <div class="image-holder">
+                                        <img src="~/css/images/insta-item4.jpg" alt="earbuds-item" class="img-fluid">
+                                    </div>
+                                   
+                                    <div class="pt-3">
+                                        <h3 class="card-title text-uppercase">
+                                            Fire-Boltt 
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="product-card position-relative">
+                                    <div class="image-holder">
+                                        <img src="~/css/images/insta-item4.jpg" alt="earbuds-item" class="img-fluid">
+                                    </div>
+                                   
+                                    <div class="pt-3">
+                                        <h3 class="card-title text-uppercase">
+                                            Boat Earbuds
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination position-absolute text-center"></div>
+        </section>
+
+
+
+            <section id="company-services" class="padding-large">
+                <div class="container">
+                    <div class="row">
+                    <div class="col-lg-3 col-md-6 pb-3">
+                        <div class="icon-box d-flex">
+                            <div class="icon-box-icon pe-3 pb-3">
+                                <svg class="cart-outline">
+                                    <use xlink:href="#cart-outline" />
+                                </svg>
+                            </div>
+                            <div class="icon-box-content">
+                                <h3 class="card-title text-uppercase text-dark">Free delivery</h3>
+                                <p>Enjoy free delivery on all orders....</p>
+                            </div>
+                        </div>
+                        </div>
+                    <div class="col-lg-3 col-md-6 pb-3">
+                        <div class="icon-box d-flex">
+                            <div class="icon-box-icon pe-3 pb-3">
+                                <svg class="quality">
+                                    <use xlink:href="#quality" />
+                                </svg>
+                            </div>
+                                <div class="icon-box-content">
+                                    <h3 class="card-title text-uppercase text-dark">Quality guarantee</h3>
+                                <p>Shop with confidence! Our products come with a quality guarantee....</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 pb-3">
+                            <div class="icon-box d-flex">
+                                <div class="icon-box-icon pe-3 pb-3">
+                                    <svg class="price-tag">
+                                        <use xlink:href="#price-tag" />
+                                    </svg>
+                                </div>
+                                <div class="icon-box-content">
+                                <h3 class="card-title text-uppercase text-dark">Festival Sale </h3>
+                                <p>Explore our fastival offers and save big!.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 pb-3">
+                            <div class="icon-box d-flex">
+                                <div class="icon-box-icon pe-3 pb-3">
+                                    <svg class="shield-plus">
+                                        <use xlink:href="#shield-plus" />
+                                    </svg>
+                                </div>
+                                <div class="icon-box-content">
+                                    <h3 class="card-title text-uppercase text-dark">100% secure payment</h3>
+                                <p>Shop with confidence! We guarantee 100% secure payment for your orders....</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="instagram" class="padding-large overflow-hidden no-padding-top">
+                <div class="container">
+                    <div class="row">
+                        <div class="display-header text-uppercase text-dark text-center pb-3">
+                            <h2 class="display-7">Available in our Shop</h2>
+                        </div>
+                        <div class="d-flex flex-wrap">
+                            <figure class="instagram-item pe-2">
+                            <a href="ViewLaptop">
+                                <img src="~/css/images/post-image1.jpg" alt="instagram" class="insta-image">
+                                </a>
+                            </figure>
+                            <figure class="instagram-item pe-2">
+                            <a href="ViewWatch">
+                                    <img src="~/css/images/insta-item2.jpg" alt="instagram" class="insta-image">
+                                </a>
+                            </figure>
+                            <figure class="instagram-item pe-2">
+                            <a href="ViewPhone">
+                                    <img src="~/css/images/insta-item3.jpg" alt="instagram" class="insta-image">
+                                </a>
+                            </figure>
+                            <figure class="instagram-item pe-2">
+                            <a href="ViewEarbuds">
+                                    <img src="~/css/images/insta-item4.jpg" alt="instagram" class="insta-image">
+                                </a>
+                            </figure>
+                            <figure class="instagram-item pe-2">
+                                <a>
+                                    <img src="~/css/images/single-image3.jpg" alt="instagram" class="insta-image">
+                                </a>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </section><hr />
+            <footer id="footer" class="overflow-hidden">
+                <div class="container">
+                    <div class="row">
+                        <div class="footer-top-area">
+                            <div class="row d-flex flex-wrap justify-content-between">
+                                <div class="col-lg-4 col-sm-6 pb-3">
+                                    <div class="footer-menu">
+                                        <h3>SmartCard</h3>
+                                    <p>Enjoy free delivery on all orders.Explore our fastival offers and save big!.Shop with confidence! Our products come with a quality </p>
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 pb-3">
+                                    <div class="footer-menu">
+                                        <img src="~/css/Logo_2.png" class="logo">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 pb-3">
+                                    <div class="footer-menu contact-item">
+                                        <h5 class="widget-title text-uppercase pb-2">Contact Us</h5>
+                                        <p>
+                                            Do you have any queries or suggestions? <a href="">kapil1114@gmail.com</a>
+                                        </p>
+                                        <p>
+                                            If you need support? Just give us a call.<br /> <a href="">+91 8889756824</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+            </footer>
+        </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="~/js/plugins.js"></script>
+    <script type="text/javascript" src="~/js/script.js"></script>
+   
+</body>
+</html>

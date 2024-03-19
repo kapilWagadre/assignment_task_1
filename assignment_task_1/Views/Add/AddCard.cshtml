@@ -1,0 +1,196 @@
+﻿
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Kendo UI Snippet</title>
+
+    <link href="https://kendo.cdn.telerik.com/themes/6.7.0/default/default-main.css" rel="stylesheet" />
+    <script src="js/jquery.min.js"></script>
+    <link href="https://kendo.cdn.telerik.com/themes/6.7.0/default/default-main.css" rel="stylesheet" />
+    <script src="js/jquery.min.js"></script>
+    <script src="js/kendo.all.min.js"></script>
+    <link href="https://kendo.cdn.telerik.com/themes/6.7.0/default/default-main.css" rel="stylesheet" />
+    <script src="js/kendo.all.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2023.2.829/js/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/6.7.0/default/default-main.css" />
+    <script src="https://kendo.cdn.telerik.com/2023.2.829/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2023.2.829/mjs/kendo.all.js" type="module"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" integrity="sha384-4LISF5TTJX/fLmGSxO53rV4miRxdg84mZsxmO8Rx5jGtp/LbrixFETvWa5a6sESd" crossorigin="anonymous">
+    <style>
+        .form {
+            margin-top: 65px;
+        }
+    </style>
+</head>
+<body>
+
+    <form class="form">
+
+        <h3>Customer Detail -</h3>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mt-4 form-group">
+                    <label for="name"><b>Customer Name :</b></label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" required>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group mt-4">
+                    <label for="number"><b>Contact Number :</b></label>
+                    <input type="number" class="form-control" id="number" name="number" placeholder="Enter Contact Number" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="email"><b>Email:</b></label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" required>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="address"><b>Address  :</b></label>
+                    <input type="text" class="form-control" id="address" name="address" placeholder="Enter Address " required>
+                </div>
+            </div>
+          </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="address"><b>Total Amount  :</b></label>
+                    <span id="totalAmount">Rs.</span>
+                </div>
+            </div>
+            <div class=" col-md-6 form-group">
+                <label for="paymentOption"><b>Payment Option :</b></label><br>
+                <input type="radio" name="paymentOption" id="upiPayment" value="upi">
+                <label for="upiPayment">  UPI Payment</label>
+
+                <input type="radio" name="paymentOption" id="cod" value="cod" checked>
+                <label for="cod">Cash on Delivery</label>
+            </div>
+        </div>
+
+    </form>
+    <div class="cart-menu mt-4">
+        <table id="table" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Product Detail</th>
+                    <th>Product price</th>
+                    <th>Product Warranty</th>
+                    <th>Quantity</th>
+                </tr>
+
+            </thead>
+            <tbody>
+            </tbody>
+
+
+
+        </table>
+
+        <a onclick="cardOrder()" class="btn btn-info">Order All</a>
+    </div>
+    <script>
+        function updateCartTable() {
+            let cartString = localStorage.getItem("cart");
+            let cart = JSON.parse(cartString);
+
+            $("#table tbody").empty();
+
+            if (cart == null || cart.length === 0) {
+                $(".btn-info").addClass('disabled');
+            } else {
+                let totalAmount = 0;
+                cart.forEach((item, index) => {
+                    let productTotal = item.productQuantity * item.productPrice;
+                    totalAmount += productTotal;
+
+                    $("#table tbody").append(`<tr><td>${item.productName}</td>
+                                                               <td>${item.productDetail}</td>
+                                                               <td>${item.productPrice}</td>
+                                                               <td>${item.productWarranty}</td>
+                                                               <td>${item.productQuantity}</td>
+                                                               <td>${productTotal}</td>
+                                                               <td><button class="btn btn-danger btn-sm" onclick="deleteItem(${index})">Delete</button></td></tr>`);
+                });
+
+                $("#table tbody").append(`<tr>
+                                                   <td colspan="5" class="text-right"><b>Total:</b></td>
+                                                   <td>${totalAmount}</td>
+                                                   <td></td>
+                                                 </tr>`);
+
+                $(".btn-info").removeClass('disabled');
+                $("#totalAmount").text(totalAmount);
+
+            }
+        }
+        function deleteItem(index) {
+            let cartString = localStorage.getItem("cart");
+            let cart = JSON.parse(cartString);
+
+            if (cart && cart.length > index) {
+                cart.splice(index, 1);
+                localStorage.setItem("cart", JSON.stringify(cart));
+                updateCartTable();
+            }
+        }
+
+       
+        function cardOrder() {
+
+            var formData = {
+                Customer_Name: $('#name').val(),
+                Number: $('#number').val(),
+                Email: $('#email').val(),
+                Address: $('#address').val(),
+                Product_price: $('#totalAmount').text()
+                
+            };
+            console.log(formData);
+            $.ajax({
+                url: '/Add/OrderCard',
+                type: 'POST',     
+                data: formData,
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.message);
+                        window.print();
+                        location.reload();
+                        localStorage.clear();
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function () {
+                    alert("An error occurred while processing the request");
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            updateCartTable();
+        });
+    </script>
+
+
+
+
+</body>
+</html>

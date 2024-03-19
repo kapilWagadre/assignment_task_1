@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - assignment_task_1</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/assignment_task_1.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" integrity="sha384-4LISF5TTJX/fLmGSxO53rV4miRxdg84mZsxmO8Rx5jGtp/LbrixFETvWa5a6sESd" crossorigin="anonymous">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+           
+            <a class="navbar-brand bi bi-cart4 ml-2" href="#">
+                SmartCard
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav ml-auto">
+                    <div class="nav-item lefthead active">
+                        <a class="nav-link bi bi-house h-5 w-5 " href="/Add/ShowView"> Home</a>
+                    </div>
+                    <div class="nav-item active">
+                        <a class="nav-link bi bi-bag-plus" href="/Add/AddCard"> AddCard <span class="card-item" style="font-size:15px">(  )</span></a>
+                    </div>
+                    <div class="nav-item active">
+                        <a class="nav-link  bi bi-lock h-5 w-5" href="/Home/Logout">Logout</a>
+                    </div>
+                    
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+       
+       
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        function AddCart(id, product_Name, product_Detail, product_Price, product_warranty) {
+            let cart = localStorage.getItem("cart");
+
+            if (cart == null) {
+                let productDetails = [];
+                let product = {
+                    productid: id,
+                    productName: product_Name,
+                    productDetail: product_Detail,
+                    productQuantity: 1,
+                    productPrice: product_Price,
+                    productWarranty: product_warranty
+                };
+                productDetails.push(product);
+                localStorage.setItem("cart", JSON.stringify(productDetails));
+                console.log("First time");
+            } else {
+                let pcart = JSON.parse(cart);
+
+                let oldProduct = pcart.find((item) => item.productid == id);
+
+                if (oldProduct) {
+
+                    oldProduct.productQuantity = oldProduct.productQuantity + 1
+                    pcart.map((item) => {
+                        if (item.productid == oldProduct.productid) {
+                            item.productQuantity = oldProduct.productQuantity;
+                        }
+                    });
+                    localStorage.setItem("cart", JSON.stringify(pcart));
+                } else {
+                    let product = {
+                        productid: id,
+                        productName: product_Name,
+                        productDetail: product_Detail,
+                        productQuantity: 1,
+                        productPrice: product_Price,
+                        productWarranty: product_warranty
+                    };
+                    pcart.push(product);
+                    localStorage.setItem("cart", JSON.stringify(pcart));
+                }
+            }
+            updatecart();
+        }
+
+        function updatecart() {
+            let cartString = localStorage.getItem("cart");
+            let cart = JSON.parse(cartString);
+
+            if (cart == null || cart.length === 0) {
+                $(".card-item").html("(0)");
+                $(".cart-body").html("<h3> NO Product </h3>");
+                $(".checkout-btn").addClass('disabled');
+            } else {
+
+                let cartCount = cart.reduce((total, item) => total + item.productQuantity, 0);
+                $(".card-item").html(`(${cartCount})`);
+
+            }
+        }
+
+        $(document).ready(function () {
+            updatecart()
+        })
+
+
+    </script>
+</body>
+</html>
