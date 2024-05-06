@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using assignment_task_1.Models;
@@ -11,9 +12,11 @@ using assignment_task_1.Models;
 namespace assignment_task_1.Migrations
 {
     [DbContext(typeof(DataBaseConnect))]
-    partial class DataBaseConnectModelSnapshot : ModelSnapshot
+    [Migration("20240408070519_initial114")]
+    partial class initial114
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,6 +40,39 @@ namespace assignment_task_1.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Category");
+                });
+
+            modelBuilder.Entity("assignment_task_1.Models.Customer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Customer_Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Product_Price")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("assignment_task_1.Models.CustomerProduct", b =>
@@ -86,71 +122,6 @@ namespace assignment_task_1.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CustomerProducts");
-                });
-
-            modelBuilder.Entity("assignment_task_1.Models.CustomerUPIPayment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("CardNumber")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Customer_Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Expiry")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Number")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("OrderId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Product_Detail")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Product_Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Product_Price")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Product_warranty")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("cvv")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("nameOnCard")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CustomerUPIPayments");
                 });
 
             modelBuilder.Entity("assignment_task_1.Models.Product", b =>

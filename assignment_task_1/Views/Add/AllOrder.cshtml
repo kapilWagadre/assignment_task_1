@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2023.2.829/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2023.2.829/js/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/6.7.0/default/default-main.css" />
+    <script src="https://kendo.cdn.telerik.com/2023.2.829/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2023.2.829/mjs/kendo.all.js" type="module"></script>
+    <style>
+        :root {
+            --primary-hue: 180; 
+        }
+
+        .border {
+            background: linear-gradient(180deg, hsl(calc(var(--primary-hue) + 180), 70%, 80%), hsl(var(--primary-hue), 100%, 80%));
+            width: 800px;
+            margin-left: 150px;
+        }
+
+        .heding {
+            margin-top: 60px;
+            background-color: pink;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="heding text-center"> Booking Information </h2>
+        <h2 class="mt-3">Welcome, @ViewData["Username"] !</h2>
+        <h5>Your Email : @ViewData["Email"]</h5>
+
+        <h5 class="mt-3" >1 - C.O.D.</h5>
+        <div id="grid"></div><hr />
+
+        <h5 class="mt-3">2 - Online Payment</h5>
+        <div id="upigrid"></div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            var username = "@ViewData["Username"]";
+            var email = "@ViewData["Email"]";
+
+            $("#grid").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: {
+                            url: "/Add/UserOrder",
+                            data: { username: username, email: email } 
+                        }
+                    },
+                    schema: {
+                        model: {
+                            fields: {
+                                //id: { type: "number", title: "Details" },
+                                orderId: { type: "number" },
+                                customer_Name: { type: "string" },
+                                number: { type: "string"},
+                                email: { type: "string" },
+                                address: { type: "string"},
+                                product_Name: { type: "string" },
+                                product_Detail: { type: "string"},
+                                product_warranty: { type: "string"},
+                                product_Price: { type: "string" },
+                            }
+                        }
+                    }
+                },
+                height: 220,
+                scrollable: true,
+                sortable: true,
+                pageable: {
+                    refresh: true,
+                    pageSizes: true,
+                    
+                },
+                columns: [
+                    { field: "orderId", title: "OrderID", type: ['nonEditableColumn'], width: 100 },
+                    { field: "customer_Name", title: "Name" },
+                    { field: "number", title: "Number" },
+                    { field: "address", title: "Address" },
+                    { field: "email", title: "Email" },
+                    { field: "product_Name", title: "Product" },
+                    { field: "product_Detail", title: "Details" },
+                    { field: "product_warranty", title: "Warranty" },
+                    { field: "product_Price", title: "Price" }
+                ]
+            });
+
+            $("#upigrid").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: {
+                            url: "/Add/UserUPIOrder",
+                            data: { username: username, email: email }
+                        }
+                    },
+                    schema: {
+                        model: {
+                            fields: {
+                                //id: { type: "number", title: "Details" },
+                                orderId: { type: "number" },
+                                customer_Name: { type: "string" },
+                                number: { type: "string" },
+                                email: { type: "string" },
+                                address: { type: "string" },
+                                product_Name: { type: "string" },
+                                product_Detail: { type: "string" },
+                                product_warranty: { type: "string" },
+                                product_Price: { type: "string" },
+                                cardNumber: { type: "string" },
+                                expiry: { type: "string" },
+                                cvv: { type: "string" },
+                                nameOnCard : { type: "string" }
+                            }
+                        }
+                    }
+                },
+                height: 220,
+                scrollable: true,
+                sortable: true,
+                pageable: {
+                    refresh: true,
+                    pageSizes: true,
+
+                },
+                columns: [
+                    { field: "orderId", title: "OrderID", type: ['nonEditableColumn'], width: 100 },
+                    { field: "customer_Name", title: "Name" },
+                    { field: "number", title: "Number" },
+                    { field: "address", title: "Address" },
+                    { field: "email", title: "Email" },
+                    { field: "product_Name", title: "Product" },
+                    { field: "product_Detail", title: "Details" },
+                    { field: "product_warranty", title: "Warranty" },
+                    { field: "product_Price", title: "Price" }
+                ]
+            });
+        });
+    </script>
+</body>
+</html>
+
+

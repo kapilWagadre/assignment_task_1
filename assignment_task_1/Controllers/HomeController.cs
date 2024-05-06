@@ -32,6 +32,7 @@ namespace assignment_task_1.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+
         public IActionResult Index()
         {
             ClaimsPrincipal claimsUser = HttpContext.User;
@@ -61,8 +62,18 @@ namespace assignment_task_1.Controllers
                 };
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                    new ClaimsPrincipal(identity), properties);
-                
+                    new ClaimsPrincipal(identity), properties); 
+                var userViewModel = new Sing_in
+                    {
+                        email = user.email,
+                        username = user.username,
+                        password = user.password,
+
+                    };
+
+                // Use TempData or Session to pass complex objects if necessary
+                TempData["UserDetails"] = JsonConvert.SerializeObject(userViewModel);
+
                 return RedirectToAction("ShowView", "Add");
             }
 
@@ -142,6 +153,38 @@ namespace assignment_task_1.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public IActionResult ChangePass(Models.ChangePassword model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = _context.Singin.FirstOrDefault(u => u.email == model.Email);
+
+                if (user != null)
+                {
+
+                    if (model.CurrentPassword == user.password)
+                    {
+                        user.password = model.NewPassword;
+
+                        _context.SaveChanges();
+                        TempData["SuccessMessage"] = "Password changed successfully.";
+                        return RedirectToAction("ShowView","Add");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "The current password is incorrect.");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "User with the given email does not exist.");
+                }
+            }
+            return RedirectToAction("ShowView","Add");
+        }
+
         public IActionResult Logout()
         {
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

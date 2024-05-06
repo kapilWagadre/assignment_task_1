@@ -5,6 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment Form</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/ogleapis.com">npm/swiper@9/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <style>
+        :root {
+            --primary-hue: 180; /* Initial hue value */
+        }
+        body {
+            background : linear-gradient(180deg, hsl(calc(var(--primary-hue) + 180), 70%, 80%), hsl(var(--primary-hue), 100%, 80%));
+        }
+
+        .card-header{
+            background-color: lightslategray;
+            color:white;
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-5">
@@ -14,25 +30,25 @@
                     <div class="card-header">
                         <h3 class="text-center mt-5">Payment Details</h3>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body page">
                         <form id="paymentForm">
                             <div class="form-group">
                                 <label for="cardNumber">Card Number</label>
-                                <input type="text" class="form-control" id="cardNumber" placeholder="Enter card number" required>
+                                <input type="text" class="form-control" name="cardNumber" id="cardNumber" placeholder="Enter card number" required>
                             </div>
                             <div class="form-row">
                                 <div class="col">
                                     <label for="expiryDate">Expiry Date</label>
-                                    <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY" required>
+                                    <input type="text" class="form-control" class="expiry" id="expiryDate" placeholder="MM/YY" required>
                                 </div>
                                 <div class="col">
                                     <label for="cvv">CVV</label>
-                                    <input type="text" class="form-control" id="cvv" placeholder="CVV" required>
+                                    <input type="text" class="form-control" class="cvv" id="cvv" placeholder="CVV" required>
                                 </div>
                             </div>
                             <div class="form-group mt-3">
                                 <label for="nameOnCard">Name on Card</label>
-                                <input type="text" class="form-control" id="nameOnCard" placeholder="Enter name on card" required>
+                                <input type="text" class="form-control" class="nameOnCard" id="nameOnCard" placeholder="Enter name on card" required>
                             </div>
                             <div class="form-group mt-4">
                                 <button type="submit" class="btn btn-primary btn-block">Pay Now</button>

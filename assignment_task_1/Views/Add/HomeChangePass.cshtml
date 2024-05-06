@@ -1,0 +1,70 @@
+﻿@model assignment_task_1.Models.ChangePassword
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Ticket</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://kendo.cdn.telerik.com/themes/7.2.1/default/default-main.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2024.1.319/js/kendo.all.min.js"></script>
+    <style>
+        .row {
+            margin-left: 40px;
+        }
+
+        .heading {
+            margin-top: 60px;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+       
+    <h3 class="heading">Change Password</h3>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-controller="Home" asp-action="ChangePass">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <!-- Display the email value -->
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label">Email:</label>
+                    <input type="text" class="form-control" value="@Model.Email" readonly />
+                    <input type="hidden" asp-for="Email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="CurrentPassword" class="control-label">Current Password:</label>
+                    <input asp-for="CurrentPassword" type="password" class="form-control" />
+                    <span asp-validation-for="CurrentPassword" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="NewPassword" class="control-label">New Password:</label>
+                    <input asp-for="NewPassword" type="password" class="form-control" />
+                    <span asp-validation-for="NewPassword" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword" class="control-label">Confirm New Password:</label>
+                    <input asp-for="ConfirmPassword" type="password" class="form-control" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Change Password" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a class="ml-5" asp-action="ShowView">Back to Login </a>
+    </div>
+
+
+</body>
+</html>
+
+

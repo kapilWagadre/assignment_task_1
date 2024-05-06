@@ -15,6 +15,16 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" integrity="sha384-4LISF5TTJX/fLmGSxO53rV4miRxdg84mZsxmO8Rx5jGtp/LbrixFETvWa5a6sESd" crossorigin="anonymous">
 
 <style>
+    :root {
+        --primary-hue: 180; /* Initial hue value */
+    }
+    body {
+        background: linear-gradient(180deg, hsl(calc(var(--primary-hue) + 180), 80%, 70%), hsl(var(--primary-hue), 80%, 70%));
+    }
+
+    .modal{
+        background: linear-gradient(180deg, hsl(calc(var(--primary-hue) + 180), 80%, 70%), hsl(var(--primary-hue), 80%, 70%));
+    }
     .color {
         color: white;
     }
@@ -25,12 +35,9 @@
 
     .header {
         margin-top: 65px;
-    }
-
-    form {
         margin: auto;
-        backdrop-filter: blur(16px) saturate(180%);
-        -webkit-backdrop-filter: blur(16px) saturate(180%);
+        backdrop-filter: blur(100px) saturate(160%);
+        -webkit-backdrop-filter: blur(100px) saturate(160%);
         border-radius: 12px;
         width: 800px;
     }
@@ -41,7 +48,7 @@
 </style>
 <form class="header" asp-controller="Add" asp-action="CustomerBill" method="post">
     <div class="container">
-        <h3 class="mt-1 text-center">Customer Details </h3>
+        <h2 class="mt-2 text-center">Customer Details </h2>
         <div class="row">
             <div class="col-lg-6">
                     @foreach (var product in Model)
@@ -89,22 +96,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @*  @foreach (var product in Model)
-                    {
-                    <tr class="product-row">
-                    <td><input type="text" class="form-control product-name-input " value="@product.Product_Name" placeholder="Product Name" /></td>
-                    <td><input type="text" class="form-control product-detail-input" value="@product.Product_Detail" placeholder="Product Details" /></td>
-                    <td><input type="number" class="form-control product-price-input" value="@product.Product_Price" placeholder="Product Price" /></td>
-                    <td><input type="text" class="form-control product-warranty-input" value="@product.Product_warranty" placeholder="Product Warranty" /></td>
-                    </tr>
-                    } *@
+                 
                     @foreach (var product in Model)
                     {
                         <tr>
-                            <td>@product.Product_Name</td>
-                            <td >@product.Product_Detail</td>
+                            <td id="proname">@product.Product_Name</td>
+                            <td id="prodetail">@product.Product_Detail</td>
                             <td id="totalprice">@product.Product_Price</td>
-                            <td>@product.Product_warranty</td>
+                            <td id="prowarr">@product.Product_warranty</td>
                            @*  <input type="hidden" name="product_prices[]" value="@product.Product_Price" /> *@
                         </tr>
                     }
@@ -122,14 +121,49 @@
 
         <div>
             <a id="myButton" class="center buttun btn btn-info" onclick="submitOrder()">Cash on Delivery</a>
-            <a id="myButton" class="ml-2 buttun btn btn-danger" onclick="UpiPayment()">UPI Payment</a>
+            <a id="myButton" class="ml-2 buttun btn btn-danger" onclick="PaymentPage()">UPI Payment</a>
            
-           @*  <a id="myButton" class="ml-2 buttun btn btn-danger" href="/Add/ShowView">Cancal Order</a> *@
-        </div>
-       @*  <button type="button" class="btn btn-secondary btn-lg" id="GenerateBill" onclick="window.print()">Print Bill</button> *@
-    </div>
-
+        </div><br />
+         </div>
 </form>
+<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="paymentModalLabel">Payment Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Payment form -->
+                <form id="paymentForm" class="paymentForm">
+                    <div class="form-group">
+                        <label for="cardNumber">Card Number</label>
+                        <input type="text" class="form-control" id="cardNumber" placeholder="Enter card number" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="expiryDate">Expiry Date</label>
+                            <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY" required>
+                        </div>
+                        <div class="col">
+                            <label for="cvv">CVV</label>
+                            <input type="text" class="form-control" id="cvv" placeholder="CVV" required>
+                        </div>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="nameOnCard">Name on Card</label>
+                        <input type="text" class="form-control" id="nameOnCard" placeholder="Enter name on card" required>
+                    </div>
+                    <div class="form-group mt-4">
+                        <a id="myButton" class="ml-2 buttun btn btn-danger" onclick="UpiPayment()">Pay Now</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
     function submitOrder() {
@@ -138,7 +172,10 @@
             Number: $('#number').val(),
             Address: $('#address').val(),
             Email: $('#email').val(),
-            Product_Price: $('#totalprice').text()
+            Product_Price: $('#totalprice').text(),
+            Product_Name: $('#proname').text(),
+            Product_Detail: $('#prodetail').text(),
+            Product_warranty: $('#prowarr').text()
             }
 
         $.ajax({
@@ -149,7 +186,7 @@
                 if (response.success) {
                     alert(response.message);
                     validForm();
-                    location.reload();
+                  
                 } else {
                     alert(response.message);
                 }
@@ -205,18 +242,30 @@
             });
 
             alert("User Name - " + name +
-                "\n" + "Contact Number - " + phone + "\n" + "Address  - " + address + "\n\n" + productInfo+"\n" +"Your Order Delivery by 15 Jan 2024, Thursday");
+                "\n" + "Contact Number - " + phone + "\n" + "Address  - " + address + "\n\n" + productInfo + "\n" + "Your Order Delivery by 1 May 2024, Thursday");
             window.print();
+            location.reload();
           
         }
    }
+    function PaymentPage() {
+        // Open the popup modal
+        $('#paymentModal').modal('show');
+       
+    }
+
 
     function UpiPayment() {
         var name = $('#name').val();
         var number = $('#number').val();
         var address = $('#address').val();
         var email = $('#email').val();
-        var totalPrice = $('#totalprice').text();
+        var cardNumber = $('#cardNumber').val();
+        var expiryDate = $('#expiryDate').val();
+        var cvv = $('#cvv').val();
+        var nameOnCard = $('#nameOnCard').val();
+
+       
 
         if (name === "" || number === "" || address === "" || email === "") {
             alert("Please fill in all the required fields.");
@@ -228,26 +277,39 @@
             Number: number,
             Address: address,
             Email: email,
-            Product_Price: totalPrice
+            CardNumber: cardNumber,
+            Expiry: expiryDate,
+            CVV: cvv,
+            NameOnCard: nameOnCard,
+            Product_Price: $('#totalprice').text(),
+            Product_Name: $('#proname').text(),
+            Product_Detail: $('#prodetail').text(),
+            Product_warranty: $('#prowarr').text()
+
         };
 
         $.ajax({
             type: 'POST',
-            url: '/Add/CustomerBuynow',
+            url: '/Add/UPIPaymentCard',
             data: customerData,
             success: function (response) {
                 if (response.success) {
-                    alert(response.message);
-                    window.location.href = '/Add/UPIPayment';
+                    var orderId = response.orderId;
+                    alert("Payment successful! Your Order ID is: " + orderId + ". Thank you for your purchase!");
+                    window.location.href = '/Add/ShowView';
                 } else {
-                    alert(response.message);
+                    alert("Payment Feild..... ");
+                    window.location.href = '/Add/ShowView';
                 }
             },
             error: function () {
                 alert("An error occurred while processing the request");
+             
+                $('#myModal').modal('hide');
             }
         });
     }
+
 </script>
 
 

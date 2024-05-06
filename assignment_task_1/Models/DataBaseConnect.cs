@@ -13,9 +13,9 @@ namespace assignment_task_1.Models
      
         public DbSet<Category> Category { get; set; }
         public DbSet<UPIPayment> UPIPayments { get; set; }
-        public DbSet<Customer> Customers { get; set; }
+        public DbSet<CustomerUPIPayment> CustomerUPIPayments { get; set; }
+        public DbSet<CustomerProduct> CustomerProducts { get; set; }
 
-       
     }
    
 }

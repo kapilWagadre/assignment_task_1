@@ -1,6 +1,4 @@
-﻿@model List<Product>;
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -25,11 +23,19 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" integrity="sha384-4LISF5TTJX/fLmGSxO53rV4miRxdg84mZsxmO8Rx5jGtp/LbrixFETvWa5a6sESd" crossorigin="anonymous">
     <style>
+        :root {
+            --primary-hue: 180; /* Initial hue value */
+        }
+
+        body {
+            background: linear-gradient(180deg, hsl(calc(var(--primary-hue) + 180), 70%, 80%), hsl(var(--primary-hue), 100%, 80%));
+        }
+
         .detail {
             color: black;
             margin-top: 90px;
             text-align: center;
-            height:250px;
+            height: 250px;
         }
 
         .color {
@@ -37,35 +43,50 @@
         }
 
         .heading {
-            margin-top:80px;
-            margin-bottom:20px;
+            margin-top: 65px;
+            margin-bottom: 20px;
+            text-align: center;
         }
 
-        .buttun
-        {
-            margin-left:430px;
+        .btn {
+            margin-left: 430px;
+            margin-bottom: 20px;
         }
+
         .img {
             margin-top: 40px;
             margin-bottom: 20px;
             height: 60px;
             width: 120px;
         }
-         
 
-        .nav-item{
-            font-size:15px;
+        .searchInput {
+            width: 360px;
+            margin-left: 750px;
+        }
+
+        .nav-item {
+            font-size: 15px;
+        }
+
+        .container {
+            background: linear-gradient(180deg, hsl(calc(var(--primary-hue) + 180), 70%, 80%), hsl(var(--primary-hue), 100%, 80%));
         }
     </style>
 </head>
 <body>
-   
-    <h3 class="heading">Best Laptop - </h3>
-    <div id="listView"></div>
+
+    <div class="heading">
+        <h2 class="mt-4">Best Laptop's</h2>
+    </div>
+    <div class=" mt-3">
+        <input id="searchInput" type="text" class="form-control searchInput" placeholder="Search Laptop's...">
+    </div>
+    <div class="mt-4" id="listView"></div>
 
     <script type="text/x-kendo-tmpl" id="template">
-        <div class="pro" style="border:1px solid">
-            <div class="container mb-5 mt-2 mx-3">
+        <div class="pro" >
+            <div class="container" style="border:1px solid; mb-5 mt-2 mx-3">
                 <div class="row">
                     <div class ="img mt-4 col-4" >
                     <dl>
@@ -77,19 +98,19 @@
                     <h2 class="header"><b>#:product_Name#</b></h3>
                     <h4>#:product_Detail#</h5><br>
                     <h5 class="fw-bold " >₹ #:product_Price#/-</h5>
-                     
+
                    </div>
 
                    <div class ="detail col-4" >
 
                     <h5 class="fw-bold ">#:product_warranty# Warranty</h5>
                     <dt class="fs-5 text-success">Product Available</dt><br>
-                    <dt>Delivery by 23 March 2024, Thursday  </dt>
+                    <dt>Delivery by 1 May 2024, Thursday  </dt>
                     <dt>|| Free Delivery ||</dt>
                    <dt> !! 7 Days Replacement Policy !!</dt>
                    </dl></div>
                    <div >
-                  
+
                     <a id="myButton" class="buttun btn btn-info" href="/Add/CustomerDetails/#:id#" @* onclick="BuyNow('#:id#')" *@>BUY NOW</a>
                        <a id="" class="btn btn-danger ml-3" onclick="AddCart('#:id #','#: product_Name #','#: product_Detail #','#: product_Price #','#: product_warranty #')" >ADD CARD</a>
                        </div>
@@ -98,59 +119,56 @@
 
         <hr>
     </script>
-   
 
-    <script>
-        // var product = @@Html.Raw(Json.Serialize(Model));
 
+   <script>
         $(document).ready(function () {
-
             $("#listView").kendoListView({
                 template: kendo.template($("#template").html()),
                 dataSource: {
-                    // data: product,
                     transport: {
                         read: {
                             url: "/Add/ShowLaptop/",
                             dataType: "json"
                         }
-                       
                     },
-
                     schema: {
                         model: {
                             id: "id",
                             fields: {
                                 id: { type: "number" },
-                                Product_Name: { type: "string" },
-                                Product_Price: { type: "string" },
-                                Product_Detail: { type: "string" },
-                                Product_warranty: { type: "string" },
+                                product_Name: { type: "string" },
+                                product_Price: { type: "string" },
+                                product_Detail: { type: "string" },
+                                product_warranty: { type: "string" },
                                 product_key: { type: "number" },
-                                Product_Image: { type: "string" }
+                                product_Image: { type: "string" }
                             }
                         }
                     }
+                },
+                dataBound: function () {
+                    attachSearchListener();
                 }
             });
-
         });
-  
-        // function BuyNow(id) {
 
-        //     $.ajax({
-        //         url: '/Add/CustomerDetails/' + id,
-        //         type: 'Post'
-        //     });
-          
-           
-        // }
+        function attachSearchListener() {
+            $("#searchInput").on("input", function () {
+                var searchText = $(this).val().toLowerCase();
 
+                $("#listView").find(".container").each(function () {
+                    var productName = $(this).find(".header").text().toLowerCase();
+
+                    if (productName.includes(searchText)) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+        }
     </script>
-
-  
-
-
 
 </body>
 </html>

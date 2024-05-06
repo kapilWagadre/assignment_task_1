@@ -31,7 +31,7 @@
                 "27" === b.which && $(".search-popup").removeClass("is-visible")
             })
     }
-
+   
     var initProductQty = function () {
 
         $('.product-qty').each(function () {

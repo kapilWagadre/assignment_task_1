@@ -25,6 +25,13 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" integrity="sha384-4LISF5TTJX/fLmGSxO53rV4miRxdg84mZsxmO8Rx5jGtp/LbrixFETvWa5a6sESd" crossorigin="anonymous">
     <style>
+        :root {
+            --primary-hue: 180; /* Initial hue value */
+        }
+
+        body {
+            background: linear-gradient(180deg, hsl(calc(var(--primary-hue) + 180), 70%, 80%), hsl(var(--primary-hue), 100%, 80%));
+        }
         .detail {
             color: black;
             margin-top: 25px;
@@ -36,8 +43,9 @@
         }
 
         .heading {
-            margin-top: 80px;
+            margin-top: 65px;
             margin-bottom: 20px;
+            text-align: center;
         }
 
         .img {
@@ -48,20 +56,37 @@
             width: 80px;
         }
 
+        .btn{
+            margin-bottom:15px;
+        }
+
         .nav-item {
             font-size: 15px;
+        }
+
+        .searchInput {
+            width: 360px;
+            margin-left: 750px;
+        }
+
+
+        .row {
+            background: linear-gradient(180deg, hsl(calc(var(--primary-hue) + 180), 70%, 80%), hsl(var(--primary-hue), 100%, 80%));
         }
 
     </style>
 </head>
 <body>
 
-    <h3 class="heading">Best Mobiles - </h3>
-    <div id="listView"></div>
+    <h2 class="heading">Best Mobiles - </h2>
+    <div class=" mt-3">
+        <input id="searchInput" type="text" class="form-control searchInput" placeholder="Search Phone's...">
+    </div>
+    <div class="mt-3" id="listView"></div>
 
     <script type="text/x-kendo-tmpl" id="template">
-            <div class="container mb-3 mt-3 mx-4">
-                 <div class="row style="border:1px solid">
+            <div class="container style="border:1px solid mb-3 mt-3 mx-4">
+                 <div class="row ">
                      <div class="col-6">
                <dl>
                   <dd class="img"><img src="data:image/*;base64,#:product_Image#" height="350" width="400"></img></dd>
@@ -74,11 +99,11 @@
 
                        <h5 class="fw-bold ">#:product_warranty# Warranty</h5>
                        <dt class="fs-5 text-success">Product Available</dt><br><br>
-                       <dt>Delivery by 23 March 2024, Thursday  </dt>
+                       <dt>Delivery by 1 May 2024, Thursday  </dt>
                        <dt>|| Free Delivery ||</dt>
                        <dt> !! 7 Days Replacement Policy !!</dt>
                        <div class="mt-5 button">
-                         <a id="myButton" class="buttun btn btn-info" href="/Add/CustomerDetails/#:id#" @* onclick="BuyNow('#:id#')" *@>BUY NOW</a>
+                         <a id="myButton" class=" btn btn-info" href="/Add/CustomerDetails/#:id#" @* onclick="BuyNow('#:id#')" *@>BUY NOW</a>
                          <a id="" class="btn btn-danger ml-3" onclick="AddCart('#:id #','#: product_Name #','#: product_Detail #','#: product_Price #','#: product_warranty #')" >ADD CARD</a>
                        </div>
               </dl>
@@ -120,16 +145,27 @@
                             }
                         }
                     }
+                }, dataBound: function () {
+                    attachSearchListener();
                 }
-                // layout: "grid",
-                // grid: {
-                //     cols: 2,
-                //     rows: 3,
-                //     gutter: 2
-                // },
             });
-
         });
+
+        function attachSearchListener() {
+            $("#searchInput").on("input", function () {
+                var searchText = $(this).val().toLowerCase();
+
+                $("#listView").find(".container").each(function () {
+                    var productName = $(this).find(".header").text().toLowerCase();
+
+                    if (productName.includes(searchText)) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+        }
     </script>
 </body>
 </html>
